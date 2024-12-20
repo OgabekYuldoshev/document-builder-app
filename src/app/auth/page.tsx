@@ -1,35 +1,23 @@
-'use client';
+import { ThemeToggle } from "@/components/theme-toggle";
+import { getUserSession } from "@/lib/auth";
+import { redirect } from "next/navigation";
+import React from "react";
+import { SignIn } from "./sign-in";
+export default async function Page() {
+	const session = await getUserSession();
 
-import { Button } from '@/components/ui/button'
-import { authClient } from '@/lib/auth-client'
-import React from 'react'
+	if (session) {
+		redirect("/");
+	}
 
-export default function Page() {
-    async function onRegister() {
-        const { data } = await authClient.signUp.email({
-            email: "test@example.com",
-            password: "password1234",
-            name: "test",
-            image: "https://example.com/image.png",
-        })
-
-        console.log(data)
-    }
-
-    async function onLogin() {
-        const { data } = await authClient.signIn.email({
-            email: "test@example.com",
-            password: "password1234"
-        })
-
-        console.log(data)
-    }
-
-    return (
-        <div>
-            Page
-            <Button onClick={onRegister}>Register</Button>
-            <Button onClick={onLogin}>Login</Button>
-        </div>
-    )
+	return (
+		<div className="w-full min-h-screen flex justify-center items-center">
+			<div className="absolute top-0 left-0 p-4 w-full flex justify-end">
+				<ThemeToggle />
+			</div>
+			<div className="Salom qalesan">
+				<SignIn />
+			</div>
+		</div>
+	);
 }

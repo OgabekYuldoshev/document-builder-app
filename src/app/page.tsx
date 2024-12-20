@@ -1,20 +1,7 @@
-'use client';
+import { getUserSession } from "@/lib/auth";
 
-import { Button } from '@/components/ui/button'
-import { authClient } from '@/lib/auth-client';
-import React from 'react'
-import { toast } from 'sonner'
+export default async function Page() {
+	const session = await getUserSession();
 
-export default function Page() {
-	const session = authClient.useSession()
-
-	return (
-		<div>
-			Page
-			{
-				session.data && <pre>{JSON.stringify(session, null, 2)}</pre>
-			}
-			<Button onClick={() => toast.error("test")}>Salom</Button>
-		</div>
-	)
+	return <div>{session && <pre>{JSON.stringify(session, null, 2)}</pre>}</div>;
 }
