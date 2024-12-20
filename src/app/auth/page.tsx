@@ -15,9 +15,7 @@ export default async function Page() {
 			<div className="absolute top-0 left-0 p-4 w-full flex justify-end">
 				<ThemeToggle />
 			</div>
-			<div className="Salom qalesan">
-				<SignIn />
-			</div>
+			<SignIn />
 		</div>
 	);
 }
