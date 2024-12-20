@@ -1,4 +1,4 @@
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
+import { Calendar, Home, Inbox, Search, Settings, User } from "lucide-react";
 
 import {
 	Sidebar,
@@ -11,39 +11,29 @@ import {
 	SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { getUserSession } from "@/lib/auth";
+import Link from "next/link";
 import { AppSidebarFooter } from "./app-sidebar-footer";
 
 // Menu items.
 const items = [
 	{
 		title: "Home",
-		url: "#",
+		url: "/",
 		icon: Home,
 	},
+];
+
+const adminMenu = [
 	{
-		title: "Inbox",
-		url: "#",
-		icon: Inbox,
-	},
-	{
-		title: "Calendar",
-		url: "#",
-		icon: Calendar,
-	},
-	{
-		title: "Search",
-		url: "#",
-		icon: Search,
-	},
-	{
-		title: "Settings",
-		url: "#",
-		icon: Settings,
+		title: "Users",
+		url: "/user",
+		icon: User,
 	},
 ];
 
 export async function AppSidebar() {
 	const session = await getUserSession();
+	const isAdmin = session?.user?.role === "admin";
 
 	return (
 		<Sidebar collapsible="icon">
@@ -55,16 +45,35 @@ export async function AppSidebar() {
 							{items.map((item) => (
 								<SidebarMenuItem key={item.title}>
 									<SidebarMenuButton asChild>
-										<a href={item.url}>
+										<Link href={item.url}>
 											<item.icon />
 											<span>{item.title}</span>
-										</a>
+										</Link>
 									</SidebarMenuButton>
 								</SidebarMenuItem>
 							))}
 						</SidebarMenu>
 					</SidebarGroupContent>
 				</SidebarGroup>
+				{isAdmin && (
+					<SidebarGroup>
+						<SidebarGroupLabel>Admin Menu</SidebarGroupLabel>
+						<SidebarGroupContent>
+							<SidebarMenu>
+								{adminMenu.map((item) => (
+									<SidebarMenuItem key={item.title}>
+										<SidebarMenuButton asChild>
+											<Link href={item.url}>
+												<item.icon />
+												<span>{item.title}</span>
+											</Link>
+										</SidebarMenuButton>
+									</SidebarMenuItem>
+								))}
+							</SidebarMenu>
+						</SidebarGroupContent>
+					</SidebarGroup>
+				)}
 			</SidebarContent>
 			<AppSidebarFooter
 				email={session?.user.email || ""}

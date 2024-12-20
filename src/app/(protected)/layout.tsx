@@ -5,10 +5,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
 	return (
 		<SidebarProvider>
 			<AppSidebar />
-			<main className="w-full">
-				{children}
-				<SidebarTrigger />
-			</main>
+			<main className="flex flex-col w-full">{children}</main>
 		</SidebarProvider>
 	);
 }
