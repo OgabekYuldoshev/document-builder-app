@@ -26,7 +26,6 @@ export type AppSidebarFooterProps = {
 };
 export function AppSidebarFooter(props: AppSidebarFooterProps) {
 	const { email, name } = props;
-
 	async function signOut() {
 		const { error, data } = await authClient.signOut();
 
@@ -40,6 +39,7 @@ export function AppSidebarFooter(props: AppSidebarFooterProps) {
 			redirect("/auth");
 		}
 	}
+
 	return (
 		<SidebarFooter>
 			<SidebarMenu>
@@ -50,7 +50,7 @@ export function AppSidebarFooter(props: AppSidebarFooterProps) {
 								<div className="flex items-center">
 									<User2 size={18} />
 									<div className="flex flex-col ml-1 group-data-[state=collapsed]:hidden">
-										<h4 className="text-sm">{name}</h4>
+										<h4 className="text-xs font-semibold">{name}</h4>
 										<span className="text-xs text-muted-foreground">
 											{email}
 										</span>

@@ -5,7 +5,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
 	return (
 		<SidebarProvider>
 			<AppSidebar />
-			<main>
+			<main className="w-full">
 				{children}
 				<SidebarTrigger />
 			</main>
