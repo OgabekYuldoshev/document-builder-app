@@ -10,4 +10,4 @@ export const DEFAULT_DOCUMENT_CONTENT = `
     <h1>Hello World</h1>
   </body>
 </html>
-`
+`;
