@@ -12,6 +12,8 @@
 
 /*.db
 
+documents
+
 # testing
 /coverage
 

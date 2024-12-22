@@ -26,6 +26,7 @@ model User {
   banned     Boolean?
   banReason  String?
   banExpires DateTime?
+  Document   Document[]
 
   @@unique([email])
   @@map("user")
@@ -78,4 +79,16 @@ model Verification {
   updatedAt  DateTime?
 
   @@map("verification")
+}
+
+model Document {
+  id        String   @id @default(cuid())
+  name      String
+  key       String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  @@index([userId])
 }

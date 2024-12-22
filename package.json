@@ -27,6 +27,7 @@
     "@tanstack/react-table": "^8.20.6",
     "@xstate/react": "^5.0.0",
     "better-auth": "^1.0.22",
+    "change-case": "^5.4.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "consola": "^3.3.0",
