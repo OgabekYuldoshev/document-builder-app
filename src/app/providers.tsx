@@ -2,7 +2,7 @@
 
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "next-themes";
-import React, { type PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
 
 export default function Providers({ children }: PropsWithChildren) {
 	return (

@@ -11,7 +11,6 @@ import consola from "consola";
 import { ChevronUp, LogOut, User2 } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import React from "react";
 import { toast } from "sonner";
 import {
 	DropdownMenu,

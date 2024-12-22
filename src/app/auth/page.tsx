@@ -1,7 +1,6 @@
 import { ThemeToggle } from "@/components/theme-toggle";
 import { getUserSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import React from "react";
 import { SignIn } from "./sign-in";
 export default async function Page() {
 	const session = await getUserSession();

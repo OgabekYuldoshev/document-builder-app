@@ -2,7 +2,6 @@ import { AppPageHeader } from "@/components/app-page-header";
 import { DataTable } from "@/components/data-table";
 import { DataTablePagination } from "@/components/data-table-pagination";
 import { db } from "@/lib/db";
-import React from "react";
 import { columns } from "./columns";
 
 interface PageProps {

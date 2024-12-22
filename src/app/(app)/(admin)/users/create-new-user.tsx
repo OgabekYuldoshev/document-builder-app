@@ -29,8 +29,9 @@ import {
 import { authClient } from "@/lib/auth-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import consola from "consola";
+import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -173,7 +174,12 @@ export function CreateNewUser() {
 							>
 								Cancel
 							</DialogClose>
-							<Button type="submit">Create a new user</Button>
+							<Button disabled={form.formState.isSubmitting} type="submit">
+								{form.formState.isSubmitting && (
+									<Loader2 className="animate-spin mr-2" />
+								)}
+								Create a new user
+							</Button>
 						</div>
 					</form>
 				</Form>

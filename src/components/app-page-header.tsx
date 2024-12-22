@@ -7,12 +7,8 @@ import {
 	BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Home } from "lucide-react";
-import Link, { type LinkProps } from "next/link";
-import React, {
-	type ComponentProps,
-	Fragment,
-	type PropsWithChildren,
-} from "react";
+import Link from "next/link";
+import { type ComponentProps, Fragment } from "react";
 import { ThemeToggle } from "./theme-toggle";
 import { Separator } from "./ui/separator";
 import { SidebarTrigger } from "./ui/sidebar";

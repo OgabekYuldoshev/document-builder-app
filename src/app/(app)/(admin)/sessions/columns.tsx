@@ -1,6 +1,6 @@
 "use client";
 
-import type { Session, User } from "@prisma/client";
+import type { Session } from "@prisma/client";
 
 import { normalizeDate } from "@/utils/date";
 
