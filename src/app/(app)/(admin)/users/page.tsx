@@ -7,18 +7,25 @@ import { columns } from "./columns";
 import { CreateNewUser } from "./create-new-user";
 
 interface PageProps {
-	searchParams: { [key: string]: string | undefined };
+	searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 export default async function Page({ searchParams }: PageProps) {
-	const currentPage = Number.parseInt((searchParams?.page as string) || "1");
-	const pageSize = Number.parseInt((searchParams?.pageSize as string) || "10");
+	const params = await searchParams;
+	const currentPage = Number.parseInt((params.page as string) || "1");
+	const pageSize = Number.parseInt((params.pageSize as string) || "10");
 
-	const [items, meta] = await db.user.paginate().withPages({
-		limit: pageSize,
-		page: currentPage,
-		includePageCount: true,
-	});
+	const [items, meta] = await db.user
+		.paginate({
+			orderBy: {
+				createdAt: "desc",
+			},
+		})
+		.withPages({
+			limit: pageSize,
+			page: currentPage,
+			includePageCount: true,
+		});
 
 	return (
 		<>
