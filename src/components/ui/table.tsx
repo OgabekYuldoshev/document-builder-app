@@ -1,6 +1,15 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
+import { MoreHorizontal } from "lucide-react";
+import { Button } from "./button";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuTrigger,
+} from "./dropdown-menu";
 
 const Table = React.forwardRef<
 	HTMLTableElement,
@@ -107,6 +116,34 @@ const TableCaption = React.forwardRef<
 	/>
 ));
 TableCaption.displayName = "TableCaption";
+
+export const TableActionLabel = (
+	props: React.ComponentProps<typeof DropdownMenuLabel>,
+) => {
+	return <DropdownMenuLabel {...props} />;
+};
+
+export const TableActionItem = (
+	props: React.ComponentProps<typeof DropdownMenuItem>,
+) => {
+	return <DropdownMenuItem {...props} />;
+};
+
+export const TableAction = (
+	props: React.ComponentProps<typeof DropdownMenuContent>,
+) => {
+	return (
+		<DropdownMenu>
+			<DropdownMenuTrigger asChild>
+				<Button variant="ghost" className="h-8 w-8 p-0">
+					<span className="sr-only">Open menu</span>
+					<MoreHorizontal />
+				</Button>
+			</DropdownMenuTrigger>
+			<DropdownMenuContent align="end" {...props} />
+		</DropdownMenu>
+	);
+};
 
 export {
 	Table,
