@@ -1,4 +1,12 @@
-import { Calendar, Home, Inbox, Search, Settings, User } from "lucide-react";
+import {
+	Calendar,
+	Home,
+	Inbox,
+	Lock,
+	Search,
+	Settings,
+	User,
+} from "lucide-react";
 
 import {
 	Sidebar,
@@ -26,8 +34,13 @@ const items = [
 const adminMenu = [
 	{
 		title: "Users",
-		url: "/user",
+		url: "/users",
 		icon: User,
+	},
+	{
+		title: "Sessions",
+		url: "/sessions",
+		icon: Lock,
 	},
 ];
 
