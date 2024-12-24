@@ -1,30 +1,23 @@
-'use server';
-
+"use server";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { db } from "@/lib/db";
 import { getDocumentPath } from "@/utils/get-document-path";
+import { pureAction } from "@/utils/pure-action";
+import { z } from "zod";
 
-export async function getDocument(id: string) {
-    try {
-        const document = await db.document.findUnique({ where: { id } })
-        if (!document) throw new Error("Document not found")
-        const documentPath = getDocumentPath()
-        const documentFile = path.join(documentPath, `${document.key}.html`)
-        const documentContent = await readFile(documentFile, 'utf-8')
-
-        return {
-            data: {
-                document,
-                content: documentContent
-            },
-            error: null
-        }
-
-    } catch (error) {
-        return {
-            data: null,
-            error: (error as Error).message,
-        };
-    }
-}
+export const fetchDocument = pureAction
+	.schema(z.string())
+	.action(async (id) => {
+		console.clear();
+		console.log(id);
+		const document = await db.document.findUnique({ where: { id } });
+		if (!document) throw new Error("Document not found");
+		const documentPath = getDocumentPath();
+		const documentFile = path.join(documentPath, `${document.key}.html`);
+		const content = await readFile(documentFile, "utf-8");
+		return {
+			document,
+			content,
+		};
+	});

@@ -7,7 +7,7 @@ import { normalizeDate } from "@/utils/date";
 import { TableAction, TableActionItem } from "@/components/ui/table";
 import type { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
-import { deleteDocumentAction } from "./actions";
+import { $deleteDocument } from "./actions";
 
 export const columns: ColumnDef<Document & { user: { name: string } }>[] = [
 	{
@@ -39,14 +39,7 @@ export const columns: ColumnDef<Document & { user: { name: string } }>[] = [
 					<TableActionItem asChild>
 						<Link href={`/documents/${row.getValue("id")}`}>View</Link>
 					</TableActionItem>
-					{/* <TableActionItem
-						onClick={() => dublicateDocumentAction(row.getValue("id"))}
-					>
-						Dublicate
-					</TableActionItem> */}
-					<TableActionItem
-						onClick={() => deleteDocumentAction(row.getValue("id"))}
-					>
+					<TableActionItem onClick={() => $deleteDocument(row.getValue("id"))}>
 						Delete
 					</TableActionItem>
 				</TableAction>

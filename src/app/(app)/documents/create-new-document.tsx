@@ -28,9 +28,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-import { createDocumentAction } from "./actions";
+import { $createDocument } from "./actions";
 
-const documentSchema = z.object({
+export const documentSchema = z.object({
 	name: z.string(),
 	key: z.string(),
 });
@@ -49,15 +49,15 @@ export function CreateNewDocument() {
 	});
 
 	async function onSubmit(values: DocumentFormValue) {
-		const { data, error } = await createDocumentAction(values);
+		const res = await $createDocument(values);
 
-		if (error) {
-			toast.error(error);
-			consola.error(error);
+		if (!res.success) {
+			toast.error(res.error);
+			consola.error(res.error);
 			return;
 		}
 
-		router.push(`/documents/${data?.id}`);
+		router.push(`/documents/${res.data.id}`);
 	}
 	return (
 		<Dialog open={isOpen} onOpenChange={setOpen}>

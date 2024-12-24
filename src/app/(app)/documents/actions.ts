@@ -7,12 +7,19 @@ import { getUserSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { DEFAULT_DOCUMENT_CONTENT } from "@/utils/constants";
 import { getDocumentPath } from "@/utils/get-document-path";
+import { pureAction } from "@/utils/pure-action";
 import { constantCase } from "change-case";
 import { revalidatePath } from "next/cache";
-import type { DocumentFormValue } from "./create-new-document";
+import { z } from "zod";
 
-export async function createDocumentAction(values: DocumentFormValue) {
-	try {
+export const $createDocument = pureAction
+	.schema(
+		z.object({
+			name: z.string(),
+			key: z.string(),
+		}),
+	)
+	.action(async (values) => {
 		const documentDir = getDocumentPath();
 		if (!existsSync(documentDir)) {
 			await mkdir(documentDir);
@@ -30,28 +37,18 @@ export async function createDocumentAction(values: DocumentFormValue) {
 		const session = await getUserSession();
 		if (!session) throw new Error("User session is not available");
 
-		const newDocument = await db.document.create({
+		return await db.document.create({
 			data: {
 				key: values.key,
 				name: values.name,
 				userId: session.user.id,
 			},
 		});
+	});
 
-		return {
-			data: newDocument,
-			error: null,
-		};
-	} catch (error) {
-		return {
-			data: null,
-			error: (error as Error).message,
-		};
-	}
-}
-
-export async function deleteDocumentAction(id: string) {
-	try {
+export const $deleteDocument = pureAction
+	.schema(z.string())
+	.action(async (id) => {
 		const document = await db.document.delete({
 			where: { id },
 		});
@@ -61,33 +58,5 @@ export async function deleteDocumentAction(id: string) {
 			await rm(documentPath);
 		}
 		revalidatePath("/documents");
-		return {
-			data: document.id,
-			error: null,
-		};
-	} catch (error) {
-		return {
-			data: null,
-			error: (error as Error).message,
-		};
-	}
-}
-
-
-export async function dublicateDocumentAction(id: string) {
-	try {
-		const document = await db.document.findUnique({
-			where: { id },
-		});
-		console.log(document)
-		return {
-			data: document,
-			error: null,
-		}
-	} catch (error) {
-		return {
-			data: null,
-			error: (error as Error).message,
-		};
-	}
-}
+		return document.id;
+	});

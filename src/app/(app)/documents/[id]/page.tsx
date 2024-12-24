@@ -1,28 +1,35 @@
 import { AppPageHeader } from "@/components/app-page-header";
+import CodeMirror from "@/components/code-mirror";
 import { notFound } from "next/navigation";
-import { getDocument } from "./actions";
+import { fetchDocument } from "./actions";
 
 interface PageProps {
-    params: Promise<{ id: string }>;
+	params: Promise<{ id: string }>;
 }
 export default async function Page({ params }: PageProps) {
-    const { id } = await params;
-    const { error, data } = await getDocument(id);
+	const { id } = await params;
+	const result = await fetchDocument(id);
 
-    if (error && !data) {
-        return notFound();
-    }
+	if (!result.success) {
+		return notFound();
+	}
 
-    return (
-        <>
-            <AppPageHeader
-                breadcrumbs={[{ label: "Documents", href: "/documents" }]}
-            />
-            <div className="px-4 pb-4">
-                <div className="flex items-center justify-between mb-6">
-                    <h1 className="text-2xl font-bold">{data?.document.name}</h1>
-                </div>
-            </div>
-        </>
-    );
+	const { document, content } = result.data;
+
+	return (
+		<>
+			<AppPageHeader
+				breadcrumbs={[
+					{ label: "Documents", href: "/documents" },
+					document.name,
+				]}
+			/>
+			<div className="px-4 pb-4">
+				<div className="flex items-center justify-between mb-6">
+					<h1 className="text-2xl font-bold">{document.name}</h1>
+				</div>
+				<CodeMirror value={content} />
+			</div>
+		</>
+	);
 }
