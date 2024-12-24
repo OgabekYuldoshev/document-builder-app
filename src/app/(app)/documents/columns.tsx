@@ -39,8 +39,13 @@ export const columns: ColumnDef<Document & { user: { name: string } }>[] = [
 					<TableActionItem asChild>
 						<Link href={`/documents/${row.getValue("id")}`}>View</Link>
 					</TableActionItem>
+					{/* <TableActionItem
+						onClick={() => dublicateDocumentAction(row.getValue("id"))}
+					>
+						Dublicate
+					</TableActionItem> */}
 					<TableActionItem
-						onClick={() => deleteDocumentAction({ id: row.getValue("id") })}
+						onClick={() => deleteDocumentAction(row.getValue("id"))}
 					>
 						Delete
 					</TableActionItem>
