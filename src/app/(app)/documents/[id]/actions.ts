@@ -20,17 +20,20 @@ export const $fetchDocument = pureAction
 		};
 	});
 
-
-export const $updateDocumentContent = pureAction.schema(z.object({
-	id: z.string(),
-	content: z.string(),
-})).action(async ({ id, content }) => {
-	const document = await db.document.findUnique({
-		where: { id }
-	})
-	if (!document) throw new Error("Document not found");
-	const documentPath = getDocumentPath();
-	const documentFile = path.join(documentPath, `${document.key}.html`);
-	await writeFile(documentFile, content);
-	return "ok"
-})
+export const $updateDocumentContent = pureAction
+	.schema(
+		z.object({
+			id: z.string(),
+			content: z.string(),
+		}),
+	)
+	.action(async ({ id, content }) => {
+		const document = await db.document.findUnique({
+			where: { id },
+		});
+		if (!document) throw new Error("Document not found");
+		const documentPath = getDocumentPath();
+		const documentFile = path.join(documentPath, `${document.key}.html`);
+		await writeFile(documentFile, content);
+		return "ok";
+	});
