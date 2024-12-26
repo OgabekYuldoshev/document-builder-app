@@ -37,7 +37,10 @@ export const columns: ColumnDef<Document & { user: { name: string } }>[] = [
 			return (
 				<TableAction>
 					<TableActionItem asChild>
-						<Link href={`/documents/${row.getValue("id")}`}>View</Link>
+						<Link href={`/documents/${row.getValue("id")}`}>Edit</Link>
+					</TableActionItem>
+					<TableActionItem asChild>
+						<Link href={`/documents/${row.getValue("id")}/editor`}>Editor</Link>
 					</TableActionItem>
 					<TableActionItem onClick={() => $deleteDocument(row.getValue("id"))}>
 						Delete

@@ -10,15 +10,10 @@ import {
 import { useMachine } from "@xstate/react";
 import { CircleCheck, Loader2 } from "lucide-react";
 import { useCallback } from "react";
-import { z } from "zod";
-import { useDocument } from "./context";
-import { updateMachine } from "./machine";
-const editorSchema = z.object({
-	content: z.string(),
-});
+import { useDocument } from "../context";
+import { updateMachine } from "../machine";
 
-type EditorValue = z.infer<typeof editorSchema>;
-export function Editor() {
+export default function Page() {
 	const { content, document } = useDocument();
 	const [state, send] = useMachine(updateMachine, {
 		input: {
@@ -67,7 +62,11 @@ export function Editor() {
 					minSize={55}
 					className="!overflow-auto"
 				>
-					<CodeEditor value={state.context.content} onChange={handleChange} />
+					<CodeEditor
+						height="99.8svh"
+						value={state.context.content}
+						onChange={handleChange}
+					/>
 				</ResizablePanel>
 				<ResizableHandle withHandle />
 				<ResizablePanel defaultSize={40} minSize={35}>

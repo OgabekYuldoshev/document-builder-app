@@ -17,7 +17,7 @@ export const CodeEditor = React.forwardRef<ReactCodeMirrorRef, CodeEditorProps>(
 				ref={ref}
 				{...rest}
 				theme={githubDark}
-				extensions={[color, langs.html()]}
+				extensions={[color, langs.html(), langs.javascript()]}
 			/>
 		);
 	},

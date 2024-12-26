@@ -57,7 +57,7 @@ export function CreateNewDocument() {
 			return;
 		}
 
-		router.push(`/documents/${res.data.id}`);
+		router.push(`/documents/${res.data.id}/editor`);
 	}
 	return (
 		<Dialog open={isOpen} onOpenChange={setOpen}>

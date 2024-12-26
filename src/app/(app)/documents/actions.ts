@@ -32,7 +32,7 @@ export const $createDocument = pureAction
 			throw new Error(
 				"Document is already created, please use another key to create a new one",
 			);
-		const documentPath = path.join(documentDir, `${values.key}.html`);
+		const documentPath = path.join(documentDir, `${values.key}.njk`);
 		await writeFile(documentPath, DEFAULT_DOCUMENT_CONTENT);
 		const session = await getUserSession();
 		if (!session) throw new Error("User session is not available");
@@ -53,7 +53,7 @@ export const $deleteDocument = pureAction
 			where: { id },
 		});
 		const documentDir = getDocumentPath();
-		const documentPath = path.join(documentDir, `${document.key}.html`);
+		const documentPath = path.join(documentDir, `${document.key}.njk`);
 		if (existsSync(documentPath)) {
 			await rm(documentPath);
 		}
