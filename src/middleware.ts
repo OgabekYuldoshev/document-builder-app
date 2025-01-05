@@ -1,23 +1,18 @@
-import { betterFetch } from "@better-fetch/fetch";
-import type { Session } from "better-auth/types";
 import { type NextRequest, NextResponse } from "next/server";
+import { verifyJWT } from "./lib/jose";
 
-export default async function authMiddleware(request: NextRequest) {
-	const { data: session } = await betterFetch<Session>(
-		"/api/auth/get-session",
-		{
-			baseURL: request.nextUrl.origin,
-			headers: {
-				cookie: request.headers.get("cookie") || "",
-			},
-		},
-	);
+export default async function middleware(request: NextRequest) {
+	const session = request.cookies.get('token')
 
 	if (!session) {
 		return NextResponse.redirect(new URL("/auth", request.url));
 	}
-
-	return NextResponse.next();
+	try {
+		await verifyJWT<{ sub: string }>(session.value);
+		return NextResponse.next()
+	} catch (error) {
+		return NextResponse.redirect(new URL("/auth", request.url));
+	}
 }
 
 export const config = {

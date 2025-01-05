@@ -1,6 +1,7 @@
-import { auth } from "@/lib/auth"
+
+import { db } from "@/lib/prisma";
 import { loadEnvConfig } from "@next/env"
-import { consola } from "consola"
+import { hashPassword } from '@/lib/bcrypt';
 
 const projectDir = process.cwd()
 
@@ -8,18 +9,16 @@ loadEnvConfig(projectDir);
 
 (async () => {
     try {
-        const response = await auth.api.signUpEmail({
-            body: {
-                email: process.env.ADMIN_USER_EMAIL || 'admin@admin.com',
-                password: process.env.ADMIN_USER_PASSWORD || 'admin12345',
+        const response = await db.user.create({
+            data: {
+                username: process.env.ADMIN_USERNAME || 'admin',
+                password: await hashPassword(process.env.ADMIN_PASSWORD || 'admin12345'),
                 name: 'Admin',
-                role: 'user',
             }
         })
 
-        consola.warn(response)
-        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+        console.log(response)
     } catch (error: any) {
-        consola.error(error.body.message)
+        console.error(error)
     }
 })()

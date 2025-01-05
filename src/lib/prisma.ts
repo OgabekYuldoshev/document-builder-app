@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { pagination } from "prisma-extension-pagination";
 
 const prismaClientSingleton = () => {
-	return new PrismaClient().$extends(pagination());
+	return new PrismaClient({ log: ["query"] }).$extends(pagination());
 };
 
 // biome-ignore lint/suspicious/noShadowRestrictedNames: <explanation>

@@ -1,4 +1,3 @@
-import consola from "consola";
 import type { z } from "zod";
 
 type ActionReturn<T extends (...args: any) => any> =
@@ -38,7 +37,7 @@ function createPureAction() {
 							data: result,
 						};
 					} catch (error) {
-						consola.error(error);
+						console.error(error);
 						return {
 							success: false,
 							error:

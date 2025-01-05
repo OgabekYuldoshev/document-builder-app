@@ -1,4 +1,4 @@
-import { db } from "@/lib/db";
+import { db } from "@/lib/prisma";
 import generator from "@/lib/generator";
 import { getDocumentContent } from "@/utils/get-document-path";
 import { zValidator } from "@hono/zod-validator";
@@ -36,7 +36,11 @@ app.get(
 
 		const pdfBuffer = await generator({ content });
 
-		return c.body(pdfBuffer, 200, {
+		if (!pdfBuffer) {
+			throw new HTTPException(404, { message: "Interval Error" });
+		}
+
+		return c.body(pdfBuffer.buffer, 200, {
 			"Content-Type": "application/pdf",
 		});
 	},
