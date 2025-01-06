@@ -1,5 +1,5 @@
-import { db } from "@/lib/prisma";
 import generator from "@/lib/generator";
+import { db } from "@/lib/prisma";
 import { getDocumentContent } from "@/utils/get-document-path";
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";

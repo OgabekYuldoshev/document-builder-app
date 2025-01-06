@@ -1,3 +1,3 @@
 export default function Renderer() {
-    return <div>Renderer</div>;
+	return <div>Renderer</div>;
 }

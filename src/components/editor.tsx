@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { langs } from "@uiw/codemirror-extensions-langs";
 import CodeMirror, {
@@ -24,7 +24,6 @@ export const HtmlEditor = React.forwardRef<ReactCodeMirrorRef, HtmlEditorProps>(
 		);
 	},
 );
-
 
 type JSONEditorProps = Omit<ReactCodeMirrorProps, "theme" | "extensions">;
 

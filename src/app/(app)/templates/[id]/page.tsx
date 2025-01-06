@@ -6,26 +6,29 @@ import MainEditor from "./components/main-editor";
 import { TemplateProvider } from "./context";
 
 interface Props {
-    params: Promise<{ id: string }>;
+	params: Promise<{ id: string }>;
 }
 export default async function Page({ params }: Props) {
-    const { id } = await params;
-    const result = await $fetchTemplate(id);
+	const { id } = await params;
+	const result = await $fetchTemplate(id);
 
-    if (!result.success) {
-        toast.error(result.error);
-        redirect("/templates");
-    }
+	if (!result.success) {
+		toast.error(result.error);
+		redirect("/templates");
+	}
 
-    const item = result.data;
+	const item = result.data;
 
-    return (
-        <TemplateProvider value={result.data}>
-            <AppPageHeader
-                breadcrumbs={[{ label: "Templates", href: "/templates" }, item.template.name]}
-            />
+	return (
+		<TemplateProvider value={result.data}>
+			<AppPageHeader
+				breadcrumbs={[
+					{ label: "Templates", href: "/templates" },
+					item.template.name,
+				]}
+			/>
 
-            <MainEditor />
-        </TemplateProvider>
-    );
+			<MainEditor />
+		</TemplateProvider>
+	);
 }

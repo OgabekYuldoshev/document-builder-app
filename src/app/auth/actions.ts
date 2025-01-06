@@ -1,4 +1,4 @@
-'use server';
+"use server";
 
 import { verifyPassword } from "@/lib/bcrypt";
 import { signJWT } from "@/lib/jose";
@@ -8,32 +8,35 @@ import { cookies } from "next/headers";
 import { z } from "zod";
 
 export const $signIn = pureAction
-  .schema(z.object({
-    username: z.string(),
-    password: z.string(),
-  })).action(async ({ username, password }) => {
-    const cookieStore = await cookies()
-    const user = await db.user.findUnique({
-      where: {
-        username,
-      }
-    })
+	.schema(
+		z.object({
+			username: z.string(),
+			password: z.string(),
+		}),
+	)
+	.action(async ({ username, password }) => {
+		const cookieStore = await cookies();
+		const user = await db.user.findUnique({
+			where: {
+				username,
+			},
+		});
 
-    if (!user) {
-      throw new Error('Username or password is incorrect')
-    }
+		if (!user) {
+			throw new Error("Username or password is incorrect");
+		}
 
-    const validPassword = await verifyPassword(password, user.password)
+		const validPassword = await verifyPassword(password, user.password);
 
-    if (!validPassword) {
-      throw new Error('Username or password is incorrect')
-    }
+		if (!validPassword) {
+			throw new Error("Username or password is incorrect");
+		}
 
-    const token = await signJWT({ sub: user.id })
+		const token = await signJWT({ sub: user.id });
 
-    cookieStore.set('token', token, { httpOnly: true, maxAge: 86400 })
+		cookieStore.set("token", token, { httpOnly: true, maxAge: 86400 });
 
-    return {
-      token
-    }
-  })
+		return {
+			token,
+		};
+	});
