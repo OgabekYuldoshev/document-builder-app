@@ -1,3 +1,5 @@
+'use client';
+
 import { langs } from "@uiw/codemirror-extensions-langs";
 import CodeMirror, {
 	type ReactCodeMirrorRef,
@@ -8,9 +10,9 @@ import React from "react";
 import { color } from "@uiw/codemirror-extensions-color";
 import { githubDark } from "@uiw/codemirror-theme-github";
 
-type CodeEditorProps = Omit<ReactCodeMirrorProps, "theme" | "extensions">;
+type HtmlEditorProps = Omit<ReactCodeMirrorProps, "theme" | "extensions">;
 
-export const CodeEditor = React.forwardRef<ReactCodeMirrorRef, CodeEditorProps>(
+export const HtmlEditor = React.forwardRef<ReactCodeMirrorRef, HtmlEditorProps>(
 	({ ...rest }, ref) => {
 		return (
 			<CodeMirror
@@ -18,6 +20,22 @@ export const CodeEditor = React.forwardRef<ReactCodeMirrorRef, CodeEditorProps>(
 				{...rest}
 				theme={githubDark}
 				extensions={[color, langs.html(), langs.javascript()]}
+			/>
+		);
+	},
+);
+
+
+type JSONEditorProps = Omit<ReactCodeMirrorProps, "theme" | "extensions">;
+
+export const JSONEditor = React.forwardRef<ReactCodeMirrorRef, JSONEditorProps>(
+	({ ...rest }, ref) => {
+		return (
+			<CodeMirror
+				ref={ref}
+				{...rest}
+				theme={githubDark}
+				extensions={[color, langs.json()]}
 			/>
 		);
 	},

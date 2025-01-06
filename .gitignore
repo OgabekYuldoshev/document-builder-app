@@ -12,7 +12,7 @@
 
 *.db
 
-.documents
+.templates
 
 # testing
 /coverage

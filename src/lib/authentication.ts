@@ -1,9 +1,9 @@
 'use server';
 
+import { pureAction } from "@/lib/pure-action";
 import { cookies } from "next/headers";
-import { db } from "./prisma";
-import { pureAction } from "@/utils/pure-action";
 import { verifyJWT } from "./jose";
+import { db } from "./prisma";
 
 export const getUserSession = pureAction.action(async () => {
   const cookieStore = await cookies();

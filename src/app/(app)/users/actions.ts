@@ -2,7 +2,7 @@
 
 import { hashPassword } from "@/lib/bcrypt";
 import { db } from "@/lib/prisma";
-import { pureAction } from "@/utils/pure-action";
+import { pureAction } from "@/lib/pure-action";
 import { z } from "zod";
 
 export const $addNewUser = pureAction.schema(z.object({

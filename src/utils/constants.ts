@@ -1,4 +1,4 @@
-export const DEFAULT_DOCUMENT_CONTENT = `
+export const DEFAULT_TEMPLATE_CONTENT = `
 <!DOCTYPE html>
 <html lang="en">
   <head>

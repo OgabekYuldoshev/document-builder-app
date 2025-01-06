@@ -1,7 +1,7 @@
 
+import { hashPassword } from '@/lib/bcrypt';
 import { db } from "@/lib/prisma";
 import { loadEnvConfig } from "@next/env"
-import { hashPassword } from '@/lib/bcrypt';
 
 const projectDir = process.cwd()
 

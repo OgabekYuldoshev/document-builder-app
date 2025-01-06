@@ -23,6 +23,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, Plus } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 import { $newTemplate } from "./actions";
 
@@ -43,6 +44,11 @@ export default function AddTemplateModal() {
 
   async function onSubmit(values: TemplateFormValue) {
     const result = await $newTemplate(values)
+    if (!result.success) {
+      toast.error(result.error)
+      console.error(result.error)
+      return;
+    }
     console.log(values);
   }
 
@@ -50,7 +56,7 @@ export default function AddTemplateModal() {
     <Dialog open={isOpen} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>
-          <Plus className="mr-2" />
+          <Plus className="mr-1" />
           New Template
         </Button>
       </DialogTrigger>

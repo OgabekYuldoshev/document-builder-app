@@ -1,11 +1,11 @@
 'use server';
 
-import { pureAction } from "@/utils/pure-action";
-import { z } from "zod";
-import { cookies } from "next/headers";
-import { db } from "@/lib/prisma";
 import { verifyPassword } from "@/lib/bcrypt";
 import { signJWT } from "@/lib/jose";
+import { db } from "@/lib/prisma";
+import { pureAction } from "@/lib/pure-action";
+import { cookies } from "next/headers";
+import { z } from "zod";
 
 export const $signIn = pureAction
   .schema(z.object({

@@ -8,15 +8,16 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Home } from "lucide-react";
 import Link from "next/link";
-import { type ComponentProps, Fragment } from "react";
+import { type ComponentProps, Fragment, type ReactNode } from "react";
 import { ThemeToggle } from "./theme-toggle";
 import { Separator } from "./ui/separator";
 import { SidebarTrigger } from "./ui/sidebar";
 
 export interface AppPageHeaderProps {
+	render?: ReactNode;
 	breadcrumbs: Array<string | { label: string; href: string }>;
 }
-export function AppPageHeader({ breadcrumbs }: AppPageHeaderProps) {
+export function AppPageHeader({ breadcrumbs, render }: AppPageHeaderProps) {
 	return (
 		<header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
 			<div className="flex items-center gap-2 px-4 w-full justify-between">
@@ -70,8 +71,9 @@ export function AppPageHeader({ breadcrumbs }: AppPageHeaderProps) {
 					</Breadcrumb>
 				</div>
 				{/* Left side */}
-				<div>
+				<div className="flex gap-2 items-center">
 					<ThemeToggle />
+					{render}
 				</div>
 			</div>
 		</header>
